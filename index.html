@@ -1,21 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Copiar Enlace</title>
+  <meta charset="UTF-8">
+  <title>Copiar Enlace</title>
 </head>
 <body>
-    <p>Haz clic en el botón para copiar el enlace:</p>
-    <input type="text" value="https://www.tarjetaamiga.com.mx/credito id="miEnlace" readonly>
-    <button onclick="copiarEnlace()">Copiar enlace</button>
+  <p>Haz clic en el botón para copiar el enlace:</p>
+  <input type="text" value="https://www.ejemplo.com" id="miEnlace" readonly>
+  <button onclick="copiarEnlace()">Copiar enlace</button>
 
-    <script>
+  <script>
     function copiarEnlace() {
+      const enlace = document.getElementById("miEnlace").value;
+      if (navigator.clipboard) {
+        // Usar la API moderna
+        navigator.clipboard.writeText(enlace)
+          .then(function() {
+            alert("¡Enlace copiado!");
+          })
+          .catch(function(err) {
+            console.error("Error al copiar: ", err);
+            alert("Error al copiar el enlace");
+          });
+      } else {
+        // Fallback para navegadores antiguos
         var copyText = document.getElementById("miEnlace");
         copyText.select();
         document.execCommand("copy");
         alert("¡Enlace copiado!");
+      }
     }
-    </script>
+  </script>
 </body>
 </html>
